@@ -27,6 +27,7 @@ if __name__ == '__main__':
                  patterns.facade.FacadeTest,
                  patterns.mediator.MediatorTest,
                  patterns.observer.ObserverTest,
+                 patterns.observer.NotificationTest,
                  patterns.observer.NotifierTest,
                  patterns.proxy.ProxyTest)
 

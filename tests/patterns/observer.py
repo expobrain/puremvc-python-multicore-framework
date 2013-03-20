@@ -4,16 +4,11 @@ from puremvc.patterns.observer import Observer, Notification, Notifier
 import unittest
 
 
-class ObserverTest(unittest.TestCase):
-    """ObserverTest: Test Observer Pattern"""
-
-    __observerTestVar = None
-
-    def __observerTestMethod(self, note):
-        self.__observerTestVar = note.getBody()
+class NotificationTest(unittest.TestCase):
+    """NotificationTest: Test Notification Class"""
 
     def testEqual(self):
-        """ObserverTest: test __eq__()"""
+        """NotificationTest: test __eq__()"""
         n1 = Notification("test", body="body", type="type")
         n2 = Notification("test", body="body", type="type")
 
@@ -21,34 +16,66 @@ class ObserverTest(unittest.TestCase):
         self.assertEqual(n1, n2)
 
     def testReprAttribute(self):
-        """ObserverTest: test __repr__()"""
+        """NotificationTest: test __repr__()"""
         obj1 = object()
         obj2 = object()
 
         self.assertEqual(
-            repr(Notification('ObserverTestNote', None)),
-            "Notification Name: ObserverTestNote"
+            repr(Notification('NotificationTestNote', None)),
+            "Notification Name: NotificationTestNote"
                 + "\nBody:None"
                 + "\nType:None"
         )
         self.assertEqual(
-            repr(Notification('ObserverTestNote', 1, 2)),
-            "Notification Name: ObserverTestNote"
+            repr(Notification('NotificationTestNote', 1, 2)),
+            "Notification Name: NotificationTestNote"
                 + "\nBody:1"
                 + "\nType:2"
         )
         self.assertEqual(
-            repr(Notification('ObserverTestNote', "aaa", "bbb")),
-            "Notification Name: ObserverTestNote"
+            repr(Notification('NotificationTestNote', "aaa", "bbb")),
+            "Notification Name: NotificationTestNote"
                 + "\nBody:" + repr("aaa")
                 + "\nType:" + repr("bbb")
         )
         self.assertEqual(
-            repr(Notification('ObserverTestNote', obj1, obj2)),
-            "Notification Name: ObserverTestNote"
+            repr(Notification('NotificationTestNote', obj1, obj2)),
+            "Notification Name: NotificationTestNote"
                 + "\nBody:" + repr(obj1)
                 + "\nType:" + repr(obj2)
         )
+
+    def testNameAccessors(self):
+        """NotificationTest: Test Name Accessors"""
+
+        note = Notification('TestNote')
+
+        self.assertEqual(True, note.getName() == 'TestNote')
+
+    def testBodyAccessors(self):
+        """NotificationTest: Test Body Accessors"""
+
+        note = Notification(None)
+        note.setBody(5)
+
+        self.assertEqual(True, note.getBody() == 5)
+
+    def testConstructor(self):
+        """NotificationTest: Test Constructor"""
+        note = Notification('TestNote', 5, 'TestNoteType')
+
+        self.assertEqual(True, note.getName() == 'TestNote')
+        self.assertEqual(True, note.getBody() == 5)
+        self.assertEqual(True, note.getType() == 'TestNoteType')
+
+
+class ObserverTest(unittest.TestCase):
+    """ObserverTest: Test Observer Pattern"""
+
+    __observerTestVar = None
+
+    def __observerTestMethod(self, note):
+        self.__observerTestVar = note.getBody()
 
     def testObserverAccessors(self):
         """ObserverTest: Test Observer Accessors"""
@@ -82,29 +109,6 @@ class ObserverTest(unittest.TestCase):
 
         self.assertEqual(False, obsrvr.compareNotifyContext(negTestObj))
         self.assertEqual(True, obsrvr.compareNotifyContext(self))
-
-    def testNameAccessors(self):
-        """NotificationTest: Test Name Accessors"""
-
-        note = Notification('TestNote')
-
-        self.assertEqual(True, note.getName() == 'TestNote')
-
-    def testBodyAccessors(self):
-        """NotificationTest: Test Body Accessors"""
-
-        note = Notification(None)
-        note.setBody(5)
-
-        self.assertEqual(True, note.getBody() == 5)
-
-    def testConstructor(self):
-        """NotificationTest: Test Constructor"""
-        note = Notification('TestNote', 5, 'TestNoteType')
-
-        self.assertEqual(True, note.getName() == 'TestNote')
-        self.assertEqual(True, note.getBody() == 5)
-        self.assertEqual(True, note.getType() == 'TestNoteType')
 
 
 class NotifierTest(unittest.TestCase):
