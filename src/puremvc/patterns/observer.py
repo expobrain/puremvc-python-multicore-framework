@@ -244,6 +244,22 @@ class Notification(puremvc.interfaces.INotification):
         """The type of the notification instance"""
         self.type = type
 
+    def __eq__(self, other):
+        """
+        Two notifications are considered equals if they are instances of the
+        class and and they have the same attribute's values
+
+        @param other: The other instance to be compared
+
+        @return: bool
+        """
+        return (
+            isinstance(other, Notification)
+            and other.name == self.name
+            and other.body == self.body
+            and other.type == self.type
+        )
+
     def __repr__(self):
         """
         Get the string representation of the C{Notification} instance.

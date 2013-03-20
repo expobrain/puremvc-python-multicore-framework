@@ -12,6 +12,14 @@ class ObserverTest(unittest.TestCase):
     def __observerTestMethod(self, note):
         self.__observerTestVar = note.getBody()
 
+    def testEqual(self):
+        """ObserverTest: test __eq__()"""
+        n1 = Notification("test", body="body", type="type")
+        n2 = Notification("test", body="body", type="type")
+
+        self.assertNotEqual(id(n1), id(n2))
+        self.assertEqual(n1, n2)
+
     def testReprAttribute(self):
         """ObserverTest: test __repr__()"""
         obj1 = object()
